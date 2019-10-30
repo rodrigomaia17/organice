@@ -228,66 +228,65 @@ class HeaderBar extends PureComponent {
       isRedoEnabled,
     } = this.props;
 
-    if (!!activeModalPage) {
+    if (Boolean(activeModalPage)) {
       return (
         <div className="header-bar__actions" onClick={this.handleModalPageDoneClick}>
           Done
         </div>
       );
-    } else {
-      const undoIconClassName = classNames('fas fa-undo header-bar__actions__item', {
-        'header-bar__actions__item--disabled': !isUndoEnabled,
-      });
-      const redoIconClassName = classNames('fas fa-redo header-bar__actions__item', {
-        'header-bar__actions__item--disabled': !isRedoEnabled,
-      });
-
-      const settingsIconClassName = classNames('fas fa-cogs header-bar__actions__item', {
-        'settings-icon--has-unseen-changelog': hasUnseenChangelog,
-      });
-
-      return (
-        <div className="header-bar__actions">
-          {!isAuthenticated && this.getPathRoot() !== 'sign_in' && (
-            <Link to="/sign_in">
-              <div className="header-bar__actions__item" title="Sign in">
-                Sign in
-              </div>
-            </Link>
-          )}
-
-          {!isAuthenticated && (
-            <a
-              href="https://github.com/200ok-ch/organice"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="fab fa-github header-bar__actions__item" />
-            </a>
-          )}
-
-          {isAuthenticated && !activeModalPage && !!path && (
-            <Fragment>
-              <i className={undoIconClassName} onClick={this.handleUndoClick} title="Undo" />
-              <i className={redoIconClassName} onClick={this.handleRedoClick} title="Redo" />
-              <i
-                className="fas fa-question-circle header-bar__actions__item"
-                onClick={this.handleHelpClick}
-                title="Help"
-              />
-            </Fragment>
-          )}
-
-          {isAuthenticated && (
-            <i
-              className={settingsIconClassName}
-              onClick={this.handleSettingsClick}
-              title="Settings"
-            />
-          )}
-        </div>
-      );
     }
+    const undoIconClassName = classNames('fas fa-undo header-bar__actions__item', {
+      'header-bar__actions__item--disabled': !isUndoEnabled,
+    });
+    const redoIconClassName = classNames('fas fa-redo header-bar__actions__item', {
+      'header-bar__actions__item--disabled': !isRedoEnabled,
+    });
+
+    const settingsIconClassName = classNames('fas fa-cogs header-bar__actions__item', {
+      'settings-icon--has-unseen-changelog': hasUnseenChangelog,
+    });
+
+    return (
+      <div className="header-bar__actions">
+        {!isAuthenticated && this.getPathRoot() !== 'sign_in' && (
+          <Link to="/sign_in">
+            <div className="header-bar__actions__item" title="Sign in">
+              Sign in
+            </div>
+          </Link>
+        )}
+
+        {!isAuthenticated && (
+          <a
+            href="https://github.com/200ok-ch/organice"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fab fa-github header-bar__actions__item" />
+          </a>
+        )}
+
+        {isAuthenticated && !activeModalPage && !!path && (
+          <Fragment>
+            <i className={undoIconClassName} onClick={this.handleUndoClick} title="Undo" />
+            <i className={redoIconClassName} onClick={this.handleRedoClick} title="Redo" />
+            <i
+              className="fas fa-question-circle header-bar__actions__item"
+              onClick={this.handleHelpClick}
+              title="Help"
+            />
+          </Fragment>
+        )}
+
+        {isAuthenticated && (
+          <i
+            className={settingsIconClassName}
+            onClick={this.handleSettingsClick}
+            title="Settings"
+          />
+        )}
+      </div>
+    );
   }
 
   render() {
